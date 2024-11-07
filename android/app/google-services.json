@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "584958897724",
+    "project_id": "pi-ii-dyxwj0",
+    "storage_bucket": "pi-ii-dyxwj0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584958897724:android:e060806c7874fc20541d39",
+        "android_client_info": {
+          "package_name": "com.mycompany.piii"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXklne7851sPV5h3U7fHGqjtcp9oi6UHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

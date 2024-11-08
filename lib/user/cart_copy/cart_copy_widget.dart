@@ -10,11 +10,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'cart_model.dart';
-export 'cart_model.dart';
+import 'cart_copy_model.dart';
+export 'cart_copy_model.dart';
 
-class CartWidget extends StatefulWidget {
-  const CartWidget({
+class CartCopyWidget extends StatefulWidget {
+  const CartCopyWidget({
     super.key,
     this.finalPrice,
   });
@@ -22,18 +22,18 @@ class CartWidget extends StatefulWidget {
   final double? finalPrice;
 
   @override
-  State<CartWidget> createState() => _CartWidgetState();
+  State<CartCopyWidget> createState() => _CartCopyWidgetState();
 }
 
-class _CartWidgetState extends State<CartWidget> {
-  late CartModel _model;
+class _CartCopyWidgetState extends State<CartCopyWidget> {
+  late CartCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => CartModel());
+    _model = createModel(context, () => CartCopyModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -170,11 +170,18 @@ class _CartWidgetState extends State<CartWidget> {
                                         width: double.infinity,
                                         decoration: BoxDecoration(
                                           color: Colors.white,
+                                          boxShadow: const [
+                                            BoxShadow(
+                                              blurRadius: 3.0,
+                                              color: Color(0x411D2429),
+                                              offset: Offset(
+                                                0.0,
+                                                1.0,
+                                              ),
+                                            )
+                                          ],
                                           borderRadius:
-                                              BorderRadius.circular(0.0),
-                                          border: Border.all(
-                                            color: Colors.transparent,
-                                          ),
+                                              BorderRadius.circular(8.0),
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
@@ -319,7 +326,7 @@ class _CartWidgetState extends State<CartWidget> {
                                                     padding:
                                                         const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 4.0,
-                                                                0.0, 15.0),
+                                                                0.0, 10.0),
                                                     child: InkWell(
                                                       splashColor:
                                                           Colors.transparent,
@@ -614,72 +621,98 @@ class _CartWidgetState extends State<CartWidget> {
               alignment: const AlignmentDirectional(0.0, 0.0),
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    _model.orderedProduct = await queryCartRecordOnce(
-                      queryBuilder: (cartRecord) => cartRecord.where(
-                        'user_ref',
-                        isEqualTo: currentUserReference,
-                      ),
-                    );
-
-                    await OrdersRecord.collection.doc().set({
-                      ...createOrdersRecordData(
-                        productTotal: widget.finalPrice,
-                        userName: valueOrDefault(currentUserDocument?.name, ''),
-                        userAddress:
-                            valueOrDefault(currentUserDocument?.address, ''),
-                        productId: '1 Red Velvet',
-                      ),
-                      ...mapToFirestore(
-                        {
-                          'date': FieldValue.serverTimestamp(),
-                        },
-                      ),
-                    });
-                    await actions.cartDelete(
-                      _model.orderedProduct!.map((e) => e.reference).toList(),
-                    );
-
-                    await currentUserReference!.update({
-                      ...mapToFirestore(
-                        {
-                          'cart': FieldValue.delete(),
-                        },
-                      ),
-                    });
-                    _model.price = null;
-                    safeSetState(() {});
-
-                    safeSetState(() {});
-                  },
-                  text: 'Concluir',
-                  options: FFButtonOptions(
-                    width: 230.0,
-                    height: 52.0,
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    iconPadding: const EdgeInsets.all(0.0),
-                    color: const Color(0xFF4B39EF),
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Plus Jakarta Sans',
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
+                child: StreamBuilder<List<CartRecord>>(
+                  stream: queryCartRecord(),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
+                          ),
                         ),
-                    elevation: 3.0,
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
+                      );
+                    }
+                    List<CartRecord> buttonCartRecordList = snapshot.data!;
+
+                    return FFButtonWidget(
+                      onPressed: () async {
+                        _model.orderedProduct = await queryCartRecordOnce(
+                          queryBuilder: (cartRecord) => cartRecord.where(
+                            'user_ref',
+                            isEqualTo: currentUserReference,
+                          ),
+                        );
+
+                        await OrdersRecord.collection.doc().set({
+                          ...createOrdersRecordData(
+                            productTotal: widget.finalPrice,
+                            userName:
+                                valueOrDefault(currentUserDocument?.name, ''),
+                            userAddress: valueOrDefault(
+                                currentUserDocument?.address, ''),
+                            productId: '1 Red Velvet',
+                          ),
+                          ...mapToFirestore(
+                            {
+                              'date': FieldValue.serverTimestamp(),
+                            },
+                          ),
+                        });
+                        await actions.cartDelete(
+                          _model.orderedProduct!
+                              .map((e) => e.reference)
+                              .toList(),
+                        );
+
+                        await currentUserReference!.update({
+                          ...mapToFirestore(
+                            {
+                              'cart': FieldValue.delete(),
+                            },
+                          ),
+                        });
+                        _model.price = null;
+                        safeSetState(() {});
+
+                        safeSetState(() {});
+                      },
+                      text: 'Concluir',
+                      options: FFButtonOptions(
+                        width: 230.0,
+                        height: 52.0,
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding: const EdgeInsets.all(0.0),
+                        color: const Color(0xFF4B39EF),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                        elevation: 3.0,
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
             Container(
               width: 1438.0,
-              height: 525.0,
+              height: 100.0,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
               ),
@@ -734,7 +767,7 @@ class _CartWidgetState extends State<CartWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed('Cart');
+                                  context.pushNamed('CartCopy');
                                 },
                                 child: Icon(
                                   Icons.shopping_cart,

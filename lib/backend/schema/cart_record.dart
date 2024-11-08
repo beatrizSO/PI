@@ -15,11 +15,6 @@ class CartRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "product_ref" field.
-  DocumentReference? _productRef;
-  DocumentReference? get productRef => _productRef;
-  bool hasProductRef() => _productRef != null;
-
   // "final_price" field.
   double? _finalPrice;
   double get finalPrice => _finalPrice ?? 0.0;
@@ -55,8 +50,12 @@ class CartRecord extends FirestoreRecord {
   String get userAddress => _userAddress ?? '';
   bool hasUserAddress() => _userAddress != null;
 
+  // "product_ref" field.
+  DocumentReference? _productRef;
+  DocumentReference? get productRef => _productRef;
+  bool hasProductRef() => _productRef != null;
+
   void _initializeFields() {
-    _productRef = snapshotData['product_ref'] as DocumentReference?;
     _finalPrice = castToType<double>(snapshotData['final_price']);
     _quantity = castToType<int>(snapshotData['quantity']);
     _userRef = snapshotData['user_ref'] as DocumentReference?;
@@ -64,6 +63,7 @@ class CartRecord extends FirestoreRecord {
     _price = castToType<double>(snapshotData['price']);
     _userName = snapshotData['user_name'] as String?;
     _userAddress = snapshotData['user_address'] as String?;
+    _productRef = snapshotData['product_ref'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -100,7 +100,6 @@ class CartRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createCartRecordData({
-  DocumentReference? productRef,
   double? finalPrice,
   int? quantity,
   DocumentReference? userRef,
@@ -108,10 +107,10 @@ Map<String, dynamic> createCartRecordData({
   double? price,
   String? userName,
   String? userAddress,
+  DocumentReference? productRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'product_ref': productRef,
       'final_price': finalPrice,
       'quantity': quantity,
       'user_ref': userRef,
@@ -119,6 +118,7 @@ Map<String, dynamic> createCartRecordData({
       'price': price,
       'user_name': userName,
       'user_address': userAddress,
+      'product_ref': productRef,
     }.withoutNulls,
   );
 
@@ -130,26 +130,26 @@ class CartRecordDocumentEquality implements Equality<CartRecord> {
 
   @override
   bool equals(CartRecord? e1, CartRecord? e2) {
-    return e1?.productRef == e2?.productRef &&
-        e1?.finalPrice == e2?.finalPrice &&
+    return e1?.finalPrice == e2?.finalPrice &&
         e1?.quantity == e2?.quantity &&
         e1?.userRef == e2?.userRef &&
         e1?.productId == e2?.productId &&
         e1?.price == e2?.price &&
         e1?.userName == e2?.userName &&
-        e1?.userAddress == e2?.userAddress;
+        e1?.userAddress == e2?.userAddress &&
+        e1?.productRef == e2?.productRef;
   }
 
   @override
   int hash(CartRecord? e) => const ListEquality().hash([
-        e?.productRef,
         e?.finalPrice,
         e?.quantity,
         e?.userRef,
         e?.productId,
         e?.price,
         e?.userName,
-        e?.userAddress
+        e?.userAddress,
+        e?.productRef
       ]);
 
   @override

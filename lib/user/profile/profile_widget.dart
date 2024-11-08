@@ -261,8 +261,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                 autofillHints: const [AutofillHints.name],
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  labelText: valueOrDefault(
-                                      currentUserDocument?.name, ''),
+                                  labelText: 'Nome completo',
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
@@ -308,7 +307,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: const Color(0xFF101213),
+                                      color: const Color(0xFF131010),
                                       fontSize: 14.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
@@ -378,7 +377,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               autofillHints: const [AutofillHints.telephoneNumber],
                               obscureText: false,
                               decoration: InputDecoration(
-                                labelText: currentUserEmail,
+                                labelText: 'Email',
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -508,8 +507,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                 autofillHints: const [AutofillHints.telephoneNumber],
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  labelText: valueOrDefault(
-                                      currentUserDocument?.address, ''),
+                                  labelText: 'Endereço',
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
@@ -748,86 +746,97 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             },
           ),
           Align(
-            alignment: const AlignmentDirectional(0.0, 1.0),
-            child: Material(
-              color: Colors.transparent,
-              elevation: 4.0,
-              child: Container(
-                width: MediaQuery.sizeOf(context).width * 1.0,
-                height: 80.0,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
+            alignment: const AlignmentDirectional(0.0, 0.0),
+            child: Container(
+              width: 1447.0,
+              height: 507.0,
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+              ),
+              child: Align(
                 alignment: const AlignmentDirectional(0.0, 1.0),
-                child: Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 24.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                child: Material(
+                  color: Colors.transparent,
+                  elevation: 4.0,
+                  child: Container(
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    height: 80.0,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    alignment: const AlignmentDirectional(0.0, 1.0),
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          16.0, 24.0, 16.0, 24.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed('Home');
-                            },
-                            child: Icon(
-                              Icons.home,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 28.0,
-                            ),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.pushNamed('Home');
+                                },
+                                child: Icon(
+                                  Icons.home,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 28.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.pushNamed('Cart');
+                                },
+                                child: const Icon(
+                                  Icons.shopping_cart,
+                                  color: Color(0xFF57636C),
+                                  size: 28.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.pushNamed('Profile');
+                                },
+                                child: Icon(
+                                  Icons.person,
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  size: 28.0,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed('Cart');
-                            },
-                            child: const Icon(
-                              Icons.shopping_cart,
-                              color: Color(0xFF57636C),
-                              size: 28.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed('Profile');
-                            },
-                            child: Icon(
-                              Icons.person,
-                              color: FlutterFlowTheme.of(context).primary,
-                              size: 28.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),

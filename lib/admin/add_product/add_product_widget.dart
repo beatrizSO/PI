@@ -35,6 +35,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
     _model.imageURLTextController ??= TextEditingController();
     _model.imageURLFocusNode ??= FocusNode();
 
+    _model.quantityTextController ??= TextEditingController();
+    _model.quantityFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -638,6 +641,105 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                               .imageURLTextControllerValidator
                                               .asValidator(context),
                                         ),
+                                        TextFormField(
+                                          controller:
+                                              _model.quantityTextController,
+                                          focusNode: _model.quantityFocusNode,
+                                          autofocus: true,
+                                          textCapitalization:
+                                              TextCapitalization.words,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelText: 'Quantidade disponível',
+                                            labelStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .override(
+                                                      fontFamily: 'Figtree',
+                                                      color: const Color(0xFF606A85),
+                                                      fontSize: 16.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                            alignLabelWithHint: true,
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Outfit',
+                                                      color: const Color(0xFF606A85),
+                                                      fontSize: 14.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                            errorStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Figtree',
+                                                      color: const Color(0xFFFF5963),
+                                                      fontSize: 12.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: Color(0xFFE5E7EB),
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: Color(0xFF6F61EF),
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: Color(0xFFFF5963),
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: Color(0xFFFF5963),
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            filled: true,
+                                            fillColor: Colors.white,
+                                            contentPadding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 16.0, 16.0, 16.0),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyLarge
+                                              .override(
+                                                fontFamily: 'Figtree',
+                                                color: const Color(0xFF15161E),
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                          minLines: 1,
+                                          keyboardType: TextInputType.number,
+                                          cursorColor: const Color(0xFF6F61EF),
+                                          validator: _model
+                                              .quantityTextControllerValidator
+                                              .asValidator(context),
+                                        ),
                                         if (responsiveVisibility(
                                           context: context,
                                           phone: false,
@@ -666,6 +768,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                       name: _model
                                                           .productNameTextController
                                                           .text,
+                                                      quantity: int.tryParse(_model
+                                                          .quantityTextController
+                                                          .text),
                                                     ));
                                                 safeSetState(() {
                                                   _model
@@ -677,6 +782,8 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                   _model.priceTextController
                                                       ?.clear();
                                                   _model.imageURLTextController
+                                                      ?.clear();
+                                                  _model.quantityTextController
                                                       ?.clear();
                                                 });
                                               },
@@ -733,107 +840,141 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                 color: Colors.white,
                               ),
                               alignment: const AlignmentDirectional(0.0, 1.0),
-                              child: Align(
-                                alignment: const AlignmentDirectional(0.0, 1.0),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  elevation: 4.0,
-                                  child: Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
-                                    height: 80.0,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                    ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: const AlignmentDirectional(0.0, 1.0),
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                child: Container(
+                                  width: 1446.0,
+                                  height: 325.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                  ),
+                                  child: Align(
                                     alignment: const AlignmentDirectional(0.0, 1.0),
-                                    child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 24.0, 16.0, 24.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Column(
-                                            mainAxisSize: MainAxisSize.min,
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      elevation: 4.0,
+                                      child: Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                1.0,
+                                        height: 80.0,
+                                        decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                        ),
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 1.0),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 24.0, 16.0, 24.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                CrossAxisAlignment.end,
                                             children: [
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  context
-                                                      .pushNamed('HomeAdmin');
-                                                },
-                                                child: Icon(
-                                                  Icons.home,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  size: 28.0,
-                                                ),
+                                              Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      context.pushNamed(
+                                                          'HomeAdmin');
+                                                    },
+                                                    child: Icon(
+                                                      Icons.home,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      size: 28.0,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      context
+                                                          .pushNamed('Orders');
+                                                    },
+                                                    child: const Icon(
+                                                      Icons.checklist_sharp,
+                                                      color: Color(0xFF57636C),
+                                                      size: 28.0,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      context
+                                                          .pushNamed('Profile');
+                                                    },
+                                                    child: Icon(
+                                                      Icons.post_add_outlined,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 28.0,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  context.pushNamed('Orders');
-                                                },
-                                                child: const Icon(
-                                                  Icons.checklist_sharp,
-                                                  color: Color(0xFF57636C),
-                                                  size: 28.0,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  context.pushNamed('Profile');
-                                                },
-                                                child: Icon(
-                                                  Icons.post_add_outlined,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 28.0,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ],

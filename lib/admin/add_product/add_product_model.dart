@@ -22,6 +22,10 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
   FocusNode? imageURLFocusNode;
   TextEditingController? imageURLTextController;
   String? Function(BuildContext, String?)? imageURLTextControllerValidator;
+  // State field(s) for quantity widget.
+  FocusNode? quantityFocusNode;
+  TextEditingController? quantityTextController;
+  String? Function(BuildContext, String?)? quantityTextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -39,5 +43,8 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
 
     imageURLFocusNode?.dispose();
     imageURLTextController?.dispose();
+
+    quantityFocusNode?.dispose();
+    quantityTextController?.dispose();
   }
 }

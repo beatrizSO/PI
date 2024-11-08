@@ -129,16 +129,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'HomeAdmin',
               path: 'homeAdmin',
               builder: (context, params) => const HomeAdminWidget(),
-            ),
-            FFRoute(
-              name: 'CartCopy',
-              path: 'cartCopy',
-              builder: (context, params) => CartCopyWidget(
-                finalPrice: params.getParam(
-                  'finalPrice',
-                  ParamType.double,
-                ),
-              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

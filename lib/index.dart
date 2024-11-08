@@ -8,4 +8,3 @@ export '/admin/orders/orders_widget.dart' show OrdersWidget;
 export '/general/login/login_widget.dart' show LoginWidget;
 export '/user/home/home_widget.dart' show HomeWidget;
 export '/admin/home_admin/home_admin_widget.dart' show HomeAdminWidget;
-export '/user/cart_copy/cart_copy_widget.dart' show CartCopyWidget;
